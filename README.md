@@ -1,3 +1,8 @@
+Hello i did the tasks and commit and pushed them all.
+
+
+
+
 
 # 📘 C Programming – 5-Week Course Syllabus
 
