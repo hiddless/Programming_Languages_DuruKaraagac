@@ -49,7 +49,7 @@ int main(void) {
         return EXIT_FAILURE;
     }
 
-    if (printf(fp, "%s %d %.2f\n", s1.name , s1.age , s1.gpa)< 0){
+    if (fprintf(fp, "%s %d %.2f\n", s1.name , s1.age , s1.gpa)< 0){
         fclose(fp);
         return EXIT_FAILURE;
     }
@@ -117,14 +117,31 @@ int load_student_binary(const char *filename, Student *out) {
         return -1;
     }
 
-    if(fclose(fp))
+    if(fclose(fp) !=0) {
+        return -1;
+    }
     
-
     return 0;
 }
 
 // TODO: open with "rb", fseek(fp, 0, SEEK_END), size = ftell(fp), close, return size (-1 on error)
 long file_size(const char *filename) {
-    (void)filename;
-    return -1;
+    FILE *fp=fopen(filename, "rb");
+
+    if(fp==NULL){
+        return -1;
+    }
+
+    if (fseek(fp, 0 , SEEK_END)!=0)
+    {
+        fclose(fp);
+        return -1;
+    }
+    long size = ftell(fp);
+
+    if(fclose(fp) !=0){
+        return -1;
+    }
+    
+    return size;
 }
